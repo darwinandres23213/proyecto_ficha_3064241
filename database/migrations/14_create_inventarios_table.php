@@ -11,8 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('inventarios', function (Blueprint $table) {
-            //
+        Schema::create('inventarios', function (Blueprint $table) {
+            $table->id(); //Identificador único del registro
+            
+            $table->unsignedInteger("stock_actual"); //Cantidad disponible
+            $table->unsignedInteger("stock_minimo"); //Umbral de alerta
+            $table->string("ubicacion", 80); //	Bodega, barra principal, VIP 
+            $table->dateTime("ultima_entrada"); //Última reposición
+            $table->dateTime("ultima_salida"); //Última salida por venta
+            $table->timestamp(); //	Fecha de creación
+
+            $table->foreignId("producto_id")->refereces("id"); // 	Producto controlado
         });
     }
 
@@ -21,8 +30,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('inventarios', function (Blueprint $table) {
-            //
-        });
+        Schema::dropIfExists("inventarios");
     }
 };
+
+
