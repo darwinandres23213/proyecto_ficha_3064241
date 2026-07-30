@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('usuarios', function (Blueprint $table) {
@@ -20,15 +18,12 @@ return new class extends Migration
             $table->string("email")->unique();
             $table->string("password",200);
             $table->timestamps();
-            $table->unsignedBigInteger("id_rol"); // campo fk
+            $table->unsignedBigInteger("id_rol"); 
 
             $table->foreign("id_rol")->references("id")->on("roles");
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists("usuarios");
