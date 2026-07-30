@@ -19,6 +19,7 @@ return new class extends Migration
             $table->enum("genero",["masculino", "femenino", "otro"]);
             $table->string("email")->unique();
             $table->string("password",200);
+            $table->timestamps();
             $table->unsignedBigInteger("id_rol"); // campo fk
 
             $table->foreign("id_rol")->references("id")->on("roles");

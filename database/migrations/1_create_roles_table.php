@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id(); // le estoy indicando que es la primaria -> id
             $table->string("nombre_rol")->unique();
             $table->text("descripcion");
+            $table->timestamps();
         });
     }
 
