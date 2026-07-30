@@ -26,7 +26,7 @@ return new class extends Migration
             $table->decimal("total", 12, 2);                // Total a pagar
             $table->enum("estado", ["abierta", "pagada", "anulada"]); // Estado de la venta
 
-            $table->timestamps(); // created_at y updated_at (nullable por defecto)
+            $table->timestamps(); // created_at y updated_at (nullable por defecto)ff
 
             // Llaves foráneas
             $table->foreign("cliente_id")->references("id")->on("clientes");
