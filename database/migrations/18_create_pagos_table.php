@@ -38,6 +38,7 @@ return new class extends Migration
                 'fallido'
             ]);
 
+
             $table->timestamps();
         });
     }
