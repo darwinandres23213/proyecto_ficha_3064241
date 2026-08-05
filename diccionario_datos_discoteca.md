@@ -473,6 +473,29 @@
 
 ---
 
+## 20. Devolución — `devoluciones`
+
+**Encargado:** *(Asignar)*  
+**Descripción:** Registra las devoluciones o reembolsos asociados a una venta realizada.
+**Depende de:** `ventas`, `empleados`
+
+| Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
+|-------|--------------|---------|----------|----|----|-------|------|-------------|
+| id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único de la devolución |
+| venta_id | foreignId | BIGINT | — | No | Sí → `ventas.id` | No | No | Venta asociada a la devolución |
+| empleado_id | foreignId | BIGINT | — | No | Sí → `empleados.id` | No | No | Empleado que registra o autoriza la devolución |
+| motivo | text | TEXT | — | No | No | No | No | Motivo de la devolución |
+| monto_devuelto | decimal | DECIMAL(12,2) | 12,2 | No | No | No | No | Valor reembolsado al cliente |
+| metodo_reembolso | enum | ENUM | — | No | No | No | No | efectivo, tarjeta, transferencia |
+| estado | enum | ENUM | — | No | No | No | No | pendiente, aprobada, rechazada |
+| fecha_devolucion | dateTime | DATETIME | — | No | No | No | No | Fecha y hora en que se realizó la devolución |
+| created_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de creación |
+| updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
+
+**Relaciones:** Pertenece a una venta y a un empleado (`belongsTo`).
+
+---
+
 ## Diagrama de relaciones (resumen)
 
 ```
