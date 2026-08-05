@@ -473,6 +473,136 @@
 
 ---
 
+## 20. Devolución — `devoluciones`
+
+**Encargado:** Anderson Alejandro Sanchez Martinez
+**Descripción:** Registra las devoluciones o reembolsos asociados a una venta realizada.
+**Depende de:** `ventas`, `empleados`
+
+| Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
+|-------|--------------|---------|----------|----|----|-------|------|-------------|
+| id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único de la devolución |
+| venta_id | foreignId | BIGINT | — | No | Sí → `ventas.id` | No | No | Venta asociada a la devolución |
+| empleado_id | foreignId | BIGINT | — | No | Sí → `empleados.id` | No | No | Empleado que registra o autoriza la devolución |
+| motivo | text | TEXT | — | No | No | No | No | Motivo de la devolución |
+| monto_devuelto | decimal | DECIMAL(12,2) | 12,2 | No | No | No | No | Valor reembolsado al cliente |
+| metodo_reembolso | enum | ENUM | — | No | No | No | No | efectivo, tarjeta, transferencia |
+| estado | enum | ENUM | — | No | No | No | No | pendiente, aprobada, rechazada |
+| fecha_devolucion | dateTime | DATETIME | — | No | No | No | No | Fecha y hora en que se realizó la devolución |
+| created_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de creación |
+| updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
+
+**Relaciones:** Pertenece a una venta y a un empleado (`belongsTo`).
+
+---
+
+## 21. Tipo de pago  —  `tipo_pago`
+
+**Encargado:** Aswin Turriago
+**Descripción:** Clasificación de las diferentes formas de pago disponibles en el establecimiento (PSE, Daviplata, Nequi, tarjeta, efectivo, entre otras).
+**Depende de:** Ninguna
+
+| Campo       | Tipo Laravel  | Tipo BD   | Longitud | PK | FK | Único | Nulo | Descripción                               |
+| ----------- | ------------- | --------- | -------- | -- | -- | ----- | ---- | ----------------------------------------- |
+| id          | bigIncrements | BIGINT    | —        | Sí | No | Sí    | No   | Identificador único del tipo de pago      |
+| nombre      | string        | VARCHAR   | 80       | No | No | Sí    | No   | Nombre del tipo de pago                   |
+| descripcion | string        | VARCHAR   | 255      | No | No | No    | Sí   | Descripción corta del tipo de pago        |
+| estado      | boolean       | TINYINT   | 1        | No | No | No    | No   | Estado del tipo de pago (Activo/Inactivo) |
+| created_at  | timestamp     | TIMESTAMP | —        | No | No | No    | Sí   | Fecha de creación                         |
+| updated_at  | timestamp     | TIMESTAMP | —        | No | No | No    | Sí   | Fecha de actualización                    |
+
+**Relaciones:** Ninguna.
+
+
+---
+
+## 22. Historial de reserva — historial_reservas
+ 
+*Encargado:* Erika Gonzalez 
+*Descripción:* Registra la trazabilidad de cambios de estado de una reserva (creación, edición, eliminación, recuperación).  
+*Depende de:* reservas, empleados
+ 
+| Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
+|-------|--------------|---------|----------|----|----|-------|------|-------------|
+| id | id | BIGINT | — | Sí | No | Sí | No | Identificador único del historial |
+| reserva_id | unsignedBigInteger | BIGINT | — | No | Sí → reservas.id | No | No | Reserva asociada |
+| empleado_id | unsignedBigInteger | BIGINT | — | No | Sí → empleados.id | No | No | Empleado que realizó la acción |
+| accion | enum | ENUM | — | No | No | No | No | creada, editada, eliminada, recuperada |
+| estado_anterior | string | VARCHAR | 255 | No | No | No | Sí | Estado de la reserva antes del cambio |
+| estado_nuevo | string | VARCHAR | 255 | No | No | No | Sí | Estado de la reserva después del cambio |
+| observaciones | string | VARCHAR | 255 | No | No | No | Sí | Notas adicionales sobre la acción |
+| created_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de creación |
+| updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
+ 
+*Relaciones:* Pertenece a una reserva y a un empleado (belongsTo).
+
+---
+
+## 23. Cargo de Empleado — `cargos_empleado`
+
+**Encargado:** Raul Ramirez
+**Descripción:** Almacena el cargo asignado a cada empleado dentro del establecimiento.
+**Depende de:** `empleados`
+
+| Campo       | Tipo Laravel  | Tipo BD   | Longitud | PK | FK                  | Único | Nulo | Descripción                                        |
+| ----------- | ------------- | --------- | -------- | -- | ------------------- | ----- | ---- | -------------------------------------------------- |
+| id          | bigIncrements | BIGINT    | —        | Sí | No                  | Sí    | No   | Identificador único del registro                   |
+| empleado_id | foreignId     | BIGINT    | —        | No | Sí → `empleados.id` | Sí    | No   | Empleado al que se le asigna el cargo              |
+| nombre      | string        | VARCHAR   | 100      | No | No                  | No    | No   | Nombre del cargo (Mesero, Bartender, Cajero, etc.) |
+| descripcion | text          | TEXT      | —        | No | No                  | No    | Sí   | Descripción de las funciones del cargo             |
+| created_at  | timestamp     | TIMESTAMP | —        | No | No                  | No    | Sí   | Fecha de creación                                  |
+| updated_at  | timestamp     | TIMESTAMP | —        | No | No                  | No    | Sí   | Fecha de actualización                             |
+
+**Relaciones:** Pertenece a un empleado (`belongsTo`). Cada empleado tiene un único cargo registrado (`hasOne`).
+
+---
+## 24. Membresía — `membresias`
+
+**Encargado:** Andres Gil
+**Descripción:** Almacena la información de las membresías asignadas a los clientes, incluyendo su tipo, vigencia y beneficios.
+**Depende de:** `clientes`
+
+| Campo             | Tipo Laravel       | Tipo BD   | Longitud | PK | FK                 | Único | Nulo | Descripción                                            |
+| ----------------- | ------------------ | --------- | -------- | -- | ------------------ | ----- | ---- | ------------------------------------------------------ |
+| id                | bigIncrements      | BIGINT    | —        | Sí | No                 | Sí    | No   | Identificador único de la membresía                    |
+| id_cliente        | unsignedBigInteger | BIGINT    | —        | No | Sí → `clientes.id` | No    | No   | Cliente al que pertenece la membresía                  |
+| tipo_membresia    | string             | VARCHAR   | 50       | No | No                 | No    | No   | Bronce, Plata, Oro, VIP                                |
+| puntos_acumulados | integer            | INT       | —        | No | No                 | No    | No   | Puntos acumulados por el cliente (default: 0)          |
+| fecha_inicio      | date               | DATE      | —        | No | No                 | No    | No   | Fecha de inicio de la membresía                        |
+| fecha_vencimiento | date               | DATE      | —        | No | No                 | No    | Sí   | Fecha de vencimiento de la membresía                   |
+| estado            | string             | VARCHAR   | 20       | No | No                 | No    | No   | Activa, Vencida, Cancelada (default: Activa)           |
+| beneficios        | text               | TEXT      | —        | No | No                 | No    | Sí   | Descripción de los beneficios asociados a la membresía |
+| created_at        | timestamp          | TIMESTAMP | —        | No | No                 | No    | Sí   | Fecha de creación                                      |
+| updated_at        | timestamp          | TIMESTAMP | —        | No | No                 | No    | Sí   | Fecha de actualización                                 |
+
+**Relaciones:** Pertenece a un cliente (`belongsTo`). Un cliente puede tener una o varias membresías (`hasMany`).
+
+---
+
+## 25. Seguridad — `seguridad`
+
+**Encargado:** Edwar Stiven Trujillo Rojas
+
+**Descripción:** Personal de seguridad encargado de la vigilancia, el control de acceso y el mantenimiento del orden dentro de la discoteca.
+
+**Depende de:** `empleados`
+
+| Campo             | Tipo Laravel  | Tipo BD   | Longitud | PK | FK                  | Único | Nulo | Descripción                                   |
+| ----------------- | ------------- | --------- | -------- | -- | ------------------- | ----- | ---- | --------------------------------------------- |
+| id                | bigIncrements | BIGINT    | —        | Sí | No                  | Sí    | No   | Identificador único del registro de seguridad |
+| empleado_id       | foreignId     | BIGINT    | —        | No | Sí → `empleados.id` | Sí    | No   | Empleado asignado como personal de seguridad  |
+| empresa_seguridad | string        | VARCHAR   | 100      | No | No                  | No    | Sí   | Empresa de seguridad (si es externa)          |
+| cargo             | string        | VARCHAR   | 50       | No | No                  | No    | No   | Cargo del personal de seguridad               |
+| turno             | enum          | ENUM      | —        | No | No                  | No    | No   | Turno de trabajo (Día, Noche o Rotativo)      |
+| licencia          | string        | VARCHAR   | 50       | No | No                  | Sí    | Sí   | Número de licencia o acreditación             |
+| estado            | boolean       | TINYINT   | 1        | No | No                  | No    | No   | Estado del personal (Activo/Inactivo)         |
+| created_at        | timestamp     | TIMESTAMP | —        | No | No                  | No    | Sí   | Fecha de creación                             |
+| updated_at        | timestamp     | TIMESTAMP | —        | No | No                  | No    | Sí   | Fecha de actualización                        |
+
+**Relaciones:** Pertenece a un empleado (`belongsTo`). Cada empleado puede tener un único registro de seguridad (`hasOne`).
+
+---
+
 ## Diagrama de relaciones (resumen)
 
 ```
