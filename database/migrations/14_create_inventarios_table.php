@@ -19,9 +19,9 @@ return new class extends Migration
             $table->string("ubicacion", 80); //	Bodega, barra principal, VIP 
             $table->dateTime("ultima_entrada"); //Última reposición
             $table->dateTime("ultima_salida"); //Última salida por venta
-            $table->timestamp(); //	Fecha de creación
+            $table->timestamps(); //	Fecha de creación
 
-            $table->foreignId("producto_id")->refereces("id"); // 	Producto controlado
+            $table->foreignId("producto_id")->refereces("id")->on("productos"); // 	Producto controlado
         });
     }
 

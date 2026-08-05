@@ -516,6 +516,28 @@
 
 ---
 
+## 22. Historial de reserva — historial_reservas
+ 
+*Encargado:* Erika Gonzalez 
+*Descripción:* Registra la trazabilidad de cambios de estado de una reserva (creación, edición, eliminación, recuperación).  
+*Depende de:* reservas, empleados
+ 
+| Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
+|-------|--------------|---------|----------|----|----|-------|------|-------------|
+| id | id | BIGINT | — | Sí | No | Sí | No | Identificador único del historial |
+| reserva_id | unsignedBigInteger | BIGINT | — | No | Sí → reservas.id | No | No | Reserva asociada |
+| empleado_id | unsignedBigInteger | BIGINT | — | No | Sí → empleados.id | No | No | Empleado que realizó la acción |
+| accion | enum | ENUM | — | No | No | No | No | creada, editada, eliminada, recuperada |
+| estado_anterior | string | VARCHAR | 255 | No | No | No | Sí | Estado de la reserva antes del cambio |
+| estado_nuevo | string | VARCHAR | 255 | No | No | No | Sí | Estado de la reserva después del cambio |
+| observaciones | string | VARCHAR | 255 | No | No | No | Sí | Notas adicionales sobre la acción |
+| created_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de creación |
+| updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
+ 
+*Relaciones:* Pertenece a una reserva y a un empleado (belongsTo).
+
+---
+
 ## 23. Cargo de Empleado — `cargos_empleado`
 
 **Encargado:** Raul Ramirez
