@@ -34,6 +34,12 @@ Las tablas deben crearse **en este orden** para que las foreign keys no fallen (
 | 18 | `create_pagos_table` | `pagos` | `ventas` | Sebastian Alexander Siachoque Triana |
 | 19 | `create_incidencias_table` | `incidencias` | `empleados`, `zonas` | Yessika Magaly Jara Herrera |
 |20  |	`create_devoluciones_table`| `devoluciones`| `ventas`, `empleados` | Anderson Alejandro Sanchez Martinez|
+|21  |	`create_tipo_pago_table`| `tipos_pago`| - | Aswin Turriago |
+|22  |	`create_historial_reservas_table`| `historial_reservas`| `reservas`, `empleados` | Erika Andrea Gonzalez |
+|23| `create_cargos_empleado_table` | `cargos_empleado` | `empleados` | Raul Ramirez
+|24| `create_membresias_table` | `membresias` | `empleados` | Andres Gil
+|25| `create_seguridad_table` | `seguridad` | `empleados` | Edwar Stiven Trujillo Rojas
+
 ---
 
 ## Asignación rápida
@@ -64,6 +70,13 @@ Las tablas deben crearse **en este orden** para que las foreign keys no fallen (
 | 15 | `detalle_ventas` | Santiago Giraldo Betancour |
 | 16 | `pagos` | Sebastian Alexander Siachoque Triana |
 | 17 | `incidencias` | Yessika Magaly Jara Herrera |
+| 20 | `devoluciones` | Anderson Alejandro Sanchez Martinez |
+| 21 | `tipos_pago` | Aswin Turriago |
+| 22 | `historial_reservas` | Erika Andrea Gonzalez |
+| 23 | `cargos_empleado` | Raul Ramirez|
+| 24 | `membresias` | Andres Gil|
+| 25 | `seguridad` | Edwar Stiven Trujillo Rojas|
+
 
 ---
 
