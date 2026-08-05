@@ -496,7 +496,7 @@
 
 ---
 
-## 21. Tipo de pago — `tipo_pago`
+## 21. Tipo de pago  —  `tipo_pago`
 
 **Encargado:** Aswin Turriago
 **Descripción:** Clasificación de las diferentes formas de pago disponibles en el establecimiento (PSE, Daviplata, Nequi, tarjeta, efectivo, entre otras).
