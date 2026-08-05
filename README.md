@@ -33,7 +33,7 @@ Las tablas deben crearse **en este orden** para que las foreign keys no fallen (
 | 17 | `create_detalle_ventas_table` | `detalle_ventas` | `ventas`, `productos` | Santiago Giraldo Betancour |
 | 18 | `create_pagos_table` | `pagos` | `ventas` | Sebastian Alexander Siachoque Triana |
 | 19 | `create_incidencias_table` | `incidencias` | `empleados`, `zonas` | Yessika Magaly Jara Herrera |
-
+|20  |	`create_devoluciones_table`| `devoluciones`| `ventas`, `empleados` | Anderson Alejandro Sanchez Martinez|
 ---
 
 ## Asignación rápida
