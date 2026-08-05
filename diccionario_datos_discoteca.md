@@ -473,30 +473,6 @@
 
 ---
 
-## 20. Reseña — `resenas` *(entidad adicional, no incluida en las 19 originales)*
-
-**Encargado:** —  
-**Descripción:** Calificación y comentario que un cliente deja sobre un evento al que asistió, con moderación opcional del staff.  
-**Depende de:** `clientes`, `eventos`
-
-| Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
-|-------|--------------|---------|----------|----|----|-------|------|-------------|
-| id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único de la reseña |
-| cliente_id | foreignId | BIGINT | — | No | Sí → `clientes.id` | No* | No | Cliente que reseña |
-| evento_id | foreignId | BIGINT | — | No | Sí → `eventos.id` | No* | No | Evento reseñado |
-| calificacion | unsignedTinyInteger | TINYINT UNSIGNED | — | No | No | No | No | Puntaje de 1 a 5 |
-| comentario | text | TEXT | — | No | No | No | Sí | Comentario del cliente |
-| respuesta_admin | text | TEXT | — | No | No | No | Sí | Respuesta del staff a la reseña |
-| estado | enum | ENUM | — | No | No | No | No | pendiente, aprobada, rechazada |
-| created_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de creación |
-| updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
-
-\* `cliente_id` + `evento_id` tienen una restricción **única compuesta**: un mismo cliente no puede reseñar el mismo evento dos veces.
-
-**Relaciones:** Pertenece a un cliente y a un evento (`belongsTo`).
-
----
-
 ## Diagrama de relaciones (resumen)
 
 ```
