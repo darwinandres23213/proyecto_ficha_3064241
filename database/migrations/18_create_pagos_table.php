@@ -19,12 +19,8 @@ return new class extends Migration
                 ->onUpdate('cascade')
                 ->onDelete('cascade');
 
-            $table->enum('metodo', [
-                'efectivo',
-                'tarjeta',
-                'transferencia',
-                'mixto'
-            ]);
+            $table->unsignedBigInteger("tipo_pago_id");
+
 
             $table->decimal('monto', 12, 2);
 
@@ -40,6 +36,9 @@ return new class extends Migration
 
 
             $table->timestamps();
+
+            $table->foreign("tipo_pago_id")->references("id")->on("tipo_pago");
+
         });
     }
     
