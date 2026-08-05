@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('djs_artistas', function (Blueprint $table) {
             $table->id();
-            $table->string("nombre_artistico", 100)->unique();
+            $table->string("nombre_artistico", 100)->unique();// profe
             $table->string("nombre_real", 120)->nullable();
             $table->string("genero_musical", 60);
             $table->text("biografia")->nullable();
