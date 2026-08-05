@@ -18,7 +18,6 @@ return new class extends Migration
             $table->unsignedBigInteger("empleado_id");               // FK -> empleados.id (requerido)
             $table->unsignedBigInteger("mesa_id")->nullable();       // FK -> mesas.id (opcional)
             $table->unsignedBigInteger("promocion_id")->nullable();  // FK -> promociones.id (opcional)
-            $table->unsignedBigInteger("tipo_pago_id");             // FK -> tipo_pago.id (requerido)
 
             $table->string("numero_factura", 30)->unique(); // Número de factura/recibo
             $table->dateTime("fecha_venta");                // Fecha y hora de la venta
@@ -34,7 +33,6 @@ return new class extends Migration
             $table->foreign("empleado_id")->references("id")->on("empleados");
             $table->foreign("mesa_id")->references("id")->on("mesas");
             $table->foreign("promocion_id")->references("id")->on("promociones");
-            $table->foreign("tipo_pago_id")->references("id")->on("tipo_pago");
         });
     }
 
