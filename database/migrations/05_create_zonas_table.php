@@ -14,13 +14,14 @@ return new class extends Migration
         
         Schema::create('zonas', function (Blueprint $table) {
             $table->id(); // llave primaria
-            $table->string("nombre",80)->unique();
-            $table->text("descripcion",);
+            $table->string("nombre", 80)->unique();
+            $table->text("descripcion");
             $table->unsignedInteger("aforo_maximo");
-            $table->decimal("precio_cover",10.2);
-            $table->boolean("estado",1);
-            $table->timestamp();
-           
+            $table->decimal("precio_cover",10,2);
+            $table->boolean("estado");
+            $table->timestamps();
+
+         
         });
     }
 
