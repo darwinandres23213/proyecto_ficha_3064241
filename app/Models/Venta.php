@@ -9,7 +9,7 @@ class Venta extends Model
 {
     use HasFactory;
 
-    protected $table = 'Ventas';
+    protected $table = 'ventas'; // hola  
 
     protected $fillable = [
         'ClienteId',
@@ -33,7 +33,6 @@ class Venta extends Model
 
 
 
-    
     // ─── Relaciones ───────────────────────────────────────────────
 
     /**
