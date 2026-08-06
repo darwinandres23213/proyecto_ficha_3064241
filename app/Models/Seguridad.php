@@ -9,7 +9,7 @@ class Seguridad extends Model
 {
     use HasFactory;
 
-    protected $table = 'personal seguridad';
+    protected $table = 'personal_seguridad';
 
     protected $fillable = [
         'empleado_id',
