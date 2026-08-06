@@ -1,8 +1,9 @@
 # Sistema de Discoteca — Diccionario de Datos (Laravel)
 
-Proyecto de gestión para discoteca con **19 entidades**.  
+Proyecto de gestión para discoteca con **26 entidades**.  
 - **Instructor:** `roles` y `usuarios`  
-- **Estudiantes:** 17 entidades restantes (una por persona)  
+- **Estudiantes con nombre:** 17 entidades  
+- **Nuevas (aprendiz asignado):** 7 entidades  
 
 Documentación completa: [`diccionario_datos_discoteca.md`](./diccionario_datos_discoteca.md)
 
@@ -10,10 +11,10 @@ Documentación completa: [`diccionario_datos_discoteca.md`](./diccionario_datos_
 
 ## Orden de creación de migraciones
 
-Las tablas deben crearse **en este orden** para que las foreign keys no fallen (`SQLSTATE[HY000]: General error: 1005 ... Foreign key constraint is incorrectly formed`).
+Las tablas deben crearse **en este orden** para que las foreign keys no fallen.
 
-| Orden | Migración sugerida | Tabla | Depende de | Encargado |
-|------:|--------------------|-------|------------|-----------|
+| Orden | Migración | Tabla | Depende de | Responsable |
+|------:|-----------|-------|------------|-------------|
 | 1 | `create_roles_table` | `roles` | — | **Instructor** |
 | 2 | `create_usuarios_table` | `usuarios` | `roles` | **Instructor** |
 | 3 | `create_empleados_table` | `empleados` | `usuarios` | Brayan Chavarro Giraldo |
@@ -31,111 +32,40 @@ Las tablas deben crearse **en este orden** para que las foreign keys no fallen (
 | 15 | `create_promociones_table` | `promociones` | `eventos` | Marlon Rojas Cortés |
 | 16 | `create_ventas_table` | `ventas` | `clientes`, `empleados`, `mesas`, `promociones` | Michael Antonio Beltran Espinosa |
 | 17 | `create_detalle_ventas_table` | `detalle_ventas` | `ventas`, `productos` | Santiago Giraldo Betancour |
-| 18 | `create_pagos_table` | `pagos` | `ventas` | Sebastian Alexander Siachoque Triana |
-| 19 | `create_incidencias_table` | `incidencias` | `empleados`, `zonas` | Yessika Magaly Jara Herrera |
-|20  |	`create_devoluciones_table`| `devoluciones`| `ventas`, `empleados` | Anderson Alejandro Sanchez Martinez|
-|21  |	`create_tipo_pago_table`| `tipos_pago`| - | Aswin Turriago |
-|22  |	`create_historial_reservas_table`| `historial_reservas`| `reservas`, `empleados` | Erika Andrea Gonzalez |
-|23| `create_cargos_empleado_table` | `cargos_empleado` | `empleados` | Raul Ramirez
-|24| `create_membresias_table` | `membresias` | `empleados` | Andres Gil
-|25| `create_seguridad_table` | `seguridad` | `empleados` | Edwar Stiven Trujillo Rojas
+| 18 | `create_tipos_pago_table` | `tipos_pago` | — | aprendiz asignado |
+| 19 | `create_pagos_table` | `pagos` | `ventas`, `tipos_pago` | Sebastian Alexander Siachoque Triana |
+| 20 | `create_incidencias_table` | `incidencias` | `empleados`, `zonas` | Yessika Magaly Jara Herrera |
+| 21 | `create_devoluciones_table` | `devoluciones` | `ventas`, `empleados` | aprendiz asignado |
+| 22 | `create_resenas_table` | `resenas` | `clientes`, `eventos` | aprendiz asignado |
+| 23 | `create_historial_reservas_table` | `historial_reservas` | `reservas`, `empleados` | aprendiz asignado |
+| 24 | `create_cargos_empleado_table` | `cargos_empleado` | `empleados` | aprendiz asignado |
+| 25 | `create_objetos_perdidos_table` | `objetos_perdidos` | — | aprendiz asignado |
+| 26 | `create_personal_seguridad_table` | `personal_seguridad` | `empleados` | aprendiz asignado |
 
 ---
 
-## Asignación rápida
+## Base de datos (Docker)
 
-### Instructor (2)
-| Tabla | Encargado |
-|-------|-----------|
-| `roles` | Instructor |
-| `usuarios` | Instructor |
+El puerto **3306** suele estar ocupado por otros contenedores. Este proyecto usa:
 
-### Estudiantes (17)
-| # | Tabla | Estudiante |
-|--:|-------|------------|
-| 1 | `empleados` | Brayan Chavarro Giraldo |
-| 2 | `clientes` | Brayann Orlando Caicedo Tibaquirá |
-| 3 | `zonas` | Caren Lizeth Rodriguez Rojas |
-| 4 | `mesas` | Carlos Tulio Quiroz Perez |
-| 5 | `djs_artistas` | Daniel Santiago Hernandez Daza |
-| 6 | `eventos` | Denis Yuliet Monsalve Diaz |
-| 7 | `reservas` | Fabio Andrés Mora Garcia |
-| 8 | `entradas` | Hector David Velasquez Lopez |
-| 9 | `categorias_producto` | Jhoan Sebastian Alfaro Robayo |
-| 10 | `proveedores` | Jhon Fredy Parales Ontiveros |
-| 11 | `productos` | Juan Carlos Olaya Lozano |
-| 12 | `inventarios` | Julian Andres Castaneda Gutierrez |
-| 13 | `promociones` | Marlon Rojas Cortés |
-| 14 | `ventas` | Michael Antonio Beltran Espinosa |
-| 15 | `detalle_ventas` | Santiago Giraldo Betancour |
-| 16 | `pagos` | Sebastian Alexander Siachoque Triana |
-| 17 | `incidencias` | Yessika Magaly Jara Herrera |
-| 20 | `devoluciones` | Anderson Alejandro Sanchez Martinez |
-| 21 | `tipos_pago` | Aswin Turriago |
-| 22 | `historial_reservas` | Erika Andrea Gonzalez |
-| 23 | `cargos_empleado` | Raul Ramirez|
-| 24 | `membresias` | Andres Gil|
-| 25 | `seguridad` | Edwar Stiven Trujillo Rojas|
+| Servicio | Puerto |
+|----------|--------|
+| MySQL (`c_mysql`) | **3308** |
+| phpMyAdmin (`c_phpmyadmin`) | **8881** |
 
-
----
-
-## Por qué este orden
-
-```
-NIVEL 1 (sin FK)     roles · clientes · zonas · djs_artistas · categorias_producto · proveedores
-        │
-NIVEL 2              usuarios ← roles
-                     mesas ← zonas
-                     eventos ← zonas + djs_artistas
-                     productos ← categorias_producto + proveedores
-                     promociones ← eventos
-        │
-NIVEL 3              empleados ← usuarios
-                     inventarios ← productos
-                     reservas ← clientes + mesas + eventos + empleados
-                     entradas ← clientes + eventos
-                     ventas ← clientes + empleados + mesas + promociones
-                     incidencias ← empleados + zonas
-        │
-NIVEL 4              detalle_ventas ← ventas + productos
-                     pagos ← ventas
+```bash
+docker compose up -d
 ```
 
-**Regla:** siempre crear primero la tabla **padre** y después la tabla **hija** que tiene el `foreignId`.
-
-### Entidades nuevas (para llegar a 19)
-| Tabla | Para qué sirve |
-|-------|----------------|
-| `entradas` | Control de boletas / ingreso a eventos |
-| `incidencias` | Reportes de seguridad o novedades en el local |
-
----
-
-## Ejemplo de timestamps (para forzar el orden)
-
-En Laravel el orden lo define el prefijo de fecha/hora del archivo:
+En `.env`:
 
 ```
-2026_07_29_000001_create_roles_table.php
-2026_07_29_000002_create_usuarios_table.php
-2026_07_29_000003_create_empleados_table.php
-2026_07_29_000004_create_clientes_table.php
-2026_07_29_000005_create_zonas_table.php
-2026_07_29_000006_create_mesas_table.php
-2026_07_29_000007_create_djs_artistas_table.php
-2026_07_29_000008_create_eventos_table.php
-2026_07_29_000009_create_reservas_table.php
-2026_07_29_000010_create_entradas_table.php
-2026_07_29_000011_create_categorias_producto_table.php
-2026_07_29_000012_create_proveedores_table.php
-2026_07_29_000013_create_productos_table.php
-2026_07_29_000014_create_inventarios_table.php
-2026_07_29_000015_create_promociones_table.php
-2026_07_29_000016_create_ventas_table.php
-2026_07_29_000017_create_detalle_ventas_table.php
-2026_07_29_000018_create_pagos_table.php
-2026_07_29_000019_create_incidencias_table.php
+DB_CONNECTION=mysql
+DB_HOST=localhost
+DB_PORT=3308
+DB_DATABASE=laravel
+DB_USERNAME=root
+DB_PASSWORD=1234
 ```
 
 ---
@@ -144,6 +74,7 @@ En Laravel el orden lo define el prefijo de fecha/hora del archivo:
 
 ```bash
 php artisan migrate
+php artisan migrate:rollback
 ```
 
 Si algo falla por FK:
@@ -152,24 +83,7 @@ Si algo falla por FK:
 php artisan migrate:fresh
 ```
 
-> `migrate:fresh` borra todas las tablas y las vuelve a crear en orden. Úsalo solo en desarrollo.
-
----
-
-## Ejemplo de FK en Laravel
-
-```php
-$table->foreignId('rol_id')
-      ->constrained('roles')
-      ->cascadeOnUpdate()
-      ->restrictOnDelete();
-
-$table->foreignId('cliente_id')->constrained('clientes')->restrictOnDelete();
-$table->foreignId('evento_id')->constrained('eventos')->restrictOnDelete();
-
-$table->foreignId('empleado_id')->constrained('empleados')->restrictOnDelete();
-$table->foreignId('zona_id')->nullable()->constrained('zonas')->nullOnDelete();
-```
+> `migrate:fresh` borra todas las tablas y las vuelve a crear. Solo en desarrollo.
 
 ---
 
@@ -180,12 +94,18 @@ roles 1──* usuarios 1──1 empleados
 zonas 1──* mesas
 zonas 1──* eventos *──1 djs_artistas
 clientes / mesas / eventos / empleados ──* reservas
+reservas / empleados ──* historial_reservas
 clientes / eventos ──* entradas
+clientes / eventos ──* resenas
 categorias_producto 1──* productos *──1 proveedores
-productos 1──1 inventarios
+productos 1──* inventarios
 eventos 1──* promociones
 clientes / empleados / mesas / promociones ──* ventas
 ventas 1──* detalle_ventas *──1 productos
-ventas 1──* pagos
+tipos_pago 1──* pagos *──1 ventas
+ventas / empleados ──* devoluciones
 empleados / zonas ──* incidencias
+empleados 1──1 cargos_empleado
+empleados 1──1 personal_seguridad
+objetos_perdidos (independiente)
 ```
