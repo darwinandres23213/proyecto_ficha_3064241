@@ -10,4 +10,9 @@ class DjArtista extends Model
 {
     use HasFactory, SoftDeletes;
     protected $table = 'djs_artistas';
+
+    public function evento()
+    {
+        return $this->BelongsTo(Evento::class); // Revisar relación con la tabla eventos
+    }
 }
