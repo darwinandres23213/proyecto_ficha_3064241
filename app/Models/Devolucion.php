@@ -18,6 +18,7 @@ class Devolucion extends Model
         'monto_devuelto',
         'metodo_reembolso',
         'estado',
+        
         'fecha_devolucion',
     ];
 
@@ -34,5 +35,6 @@ class Devolucion extends Model
     public function empleado()
     {
         return $this->belongsTo(Empleado::class);
+        
     }
 }
