@@ -9,7 +9,7 @@ class Venta extends Model
 {
     use HasFactory;
 
-    protected $table = 'Ventas'; // hola  
+    protected $table = 'ventas'; // hola  
 
     protected $fillable = [
         'ClienteId',
