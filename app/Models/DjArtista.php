@@ -11,6 +11,16 @@ class DjArtista extends Model
     use HasFactory, SoftDeletes;
     protected $table = 'djs_artistas';
 
+    protected $fillable = [
+        'nombre_artistico',
+        'nombre_real',
+        'genero_musical',
+        'biografia',
+        'contacto',
+        'cache_base',
+        'estado'
+    ];
+
     public function evento()
     {
         return $this->BelongsTo(Evento::class); // Revisar relación con la tabla eventos
