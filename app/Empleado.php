@@ -1,16 +1,17 @@
 <?php
 
-namespace App\Models;
+namespace App;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Empleado extends Model
+
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
 
     protected $table = 'empleados';
-
     protected $fillable = [
         'usuario_id',
         'documento',
@@ -22,15 +23,8 @@ class Empleado extends Model
         'estado',
     ];
 
-    protected $casts = [
-        'fecha_ingreso' => 'date',
-        'salario' => 'decimal:2',
-    ];
-
-    /**
-     * Relación: Un empleado pertenece a un usuario.
-     */
     public function usuario()
+
     {
         return $this->belongsTo(Usuario::class);
     }
