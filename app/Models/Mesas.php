@@ -23,11 +23,6 @@ class Mesa extends Model
         return $this->hasMany(Reservas::class, 'mesa_id');
     }
 
-    public function getEstadoAttribute($value)
-    {
-        return $value ? 'Disponible' : 'Ocupada';
-    }
-
     public function zona()
     {
         return $this->belongsTo(Zonas::class, 'zona_id');
