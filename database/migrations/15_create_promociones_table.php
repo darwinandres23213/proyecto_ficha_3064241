@@ -21,7 +21,7 @@ return new class extends Migration
             $table->dateTime('fecha_fin');
             $table->boolean('estado')->default(true);
             $table->timestamps();
-            $table->foreignId('evento_id')->nullable()->constrained('eventos')->nullOnDelete();
+            $table->foreignId('evento_id')->nullable()->constrained('eventos')->onDelete("cascade");
         });
     }
 

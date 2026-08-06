@@ -5,38 +5,31 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Resena extends Model
+class Entrada extends Model
 {
     use HasFactory;
 
-    protected $table = 'resenas';
+    protected $table = "entradas";
 
     protected $fillable = [
         'cliente_id',
         'evento_id',
-        'calificacion',
-        'comentario',
-        'respuesta_admin',
+        'codigo',
+        'tipo',
+        'precio',
+        'fecha_compra',
+        'fecha_uso',
         'estado',
     ];
 
-    protected $casts = [
-        'calificacion' => 'integer',
-    ];
-
-    /**
-     * Cliente que dejó la reseña.
-     */
-    public function cliente()
+     public function cliente()
     {
         return $this->belongsTo(Cliente::class);
     }
 
-    /**
-     * Evento reseñado.
-     */
     public function evento()
     {
         return $this->belongsTo(Evento::class);
     }
 }
+

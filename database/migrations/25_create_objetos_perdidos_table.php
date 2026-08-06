@@ -21,7 +21,10 @@ return new class extends Migration
             $table->string('lugar_encontrado', 100);
             $table->dateTime('fecha_encontrado');
             $table->enum('estado', ['disponible', 'entregado', 'desechado']);
+<<<<<<< HEAD:database/migrations/24_create_objetos_perdidos.php
 
+=======
+>>>>>>> develop:database/migrations/25_create_objetos_perdidos_table.php
             $table->timestamps();
         });
     }
