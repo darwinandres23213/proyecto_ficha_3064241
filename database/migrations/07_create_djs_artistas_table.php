@@ -20,8 +20,7 @@ return new class extends Migration
             $table->string("contacto", 100)->nullable();
             $table->decimal("cache_base", 12,2)->nullable();
             $table->boolean("estado");
-            $table->timestap("created_at")->nullable();
-            $table->timestap("updated_at")->nullable();
+            $table->timestamps();
         });
     }
 
@@ -30,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIdExists("djs_artistas");
+        Schema::dropIfExists("djs_artistas");
     }
 };
