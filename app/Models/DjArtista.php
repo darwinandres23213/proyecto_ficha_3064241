@@ -21,8 +21,8 @@ class DjArtista extends Model
         'estado'
     ];
 
-    public function evento()
+    public function eventos()
     {
-        return $this->BelongsTo(Evento::class); // Revisar relación con la tabla eventos
+        return $this->HasMany(Evento::class, 'dj_artistas_id'); // Revisar relación con la tabla eventos
     }
 }
