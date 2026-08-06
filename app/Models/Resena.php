@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Resena extends Model
 {
@@ -24,18 +25,13 @@ class Resena extends Model
         'calificacion' => 'integer',
     ];
 
-    /**
-     * Cliente que dejó la reseña.
-     */
-    public function cliente()
+    // Relaciones
+    public function cliente(): BelongsTo
     {
         return $this->belongsTo(Cliente::class);
     }
 
-    /**
-     * Evento reseñado.
-     */
-    public function evento()
+    public function evento(): BelongsTo
     {
         return $this->belongsTo(Evento::class);
     }
