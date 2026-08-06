@@ -10,15 +10,23 @@ class ObjetoPerdido extends Model
 {
     use HasFactory, SofteDeletes;
 
-    protected $table = "objetos_perdidos";
+    protected $table = 'objetos_perdidos';
 
-    protected $fillable =[
+    protected $fillable = [
+        'mesa_id',
         'nombre_objeto',
         'descripcion',
         'lugar_encontrado',
         'fecha_encontrado',
-        'estado', ['disponible', 'entregado', 'desechado'],
-        'created_attimestamp',
-        'updated_attimestamp'
+        'estado',
     ];
+
+    protected $casts = [
+        'fecha_encontrado' => 'datetime',
+    ];
+
+    public function mesa()
+    {
+        return $this->belongsTo(Mesa::class);
+    }
 }
