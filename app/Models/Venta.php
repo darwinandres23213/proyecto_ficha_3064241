@@ -9,7 +9,7 @@ class Venta extends Model
 {
     use HasFactory;
 
-    protected $table = 'Venta';
+    protected $table = 'Ventas';
 
     protected $fillable = [
         'ClienteId',
@@ -31,6 +31,9 @@ class Venta extends Model
         'Total'      => 'decimal:2',
     ];
 
+
+
+    
     // ─── Relaciones ───────────────────────────────────────────────
 
     /**
@@ -38,9 +41,9 @@ class Venta extends Model
      */
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'ClienteId');
+        return $this->belongsTo(Cliente::class, 'ClienteId');   git 
     }
-
+  
     /**
      * Empleado que registró la venta.
      */
