@@ -39,4 +39,9 @@ class Reserva extends Model
     {
         return $this->belongsTo(Empleado::class, 'empleado_id');
     }
+
+    public function historial()
+    {
+        return $this->hasMany(HistorialReserva::class);
+    }   
 }

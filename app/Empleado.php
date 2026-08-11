@@ -28,4 +28,9 @@ class Empleado extends Model
     {
         return $this->belongsTo(Usuario::class);
     }
+
+    public function historialReservas()
+    {
+        return $this->hasMany(HistorialReserva::class);
+    }
 }
