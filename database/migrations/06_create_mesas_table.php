@@ -6,26 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('mesas', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('zona_id')->constrained('zonas');
+            $table->foreignId('zona_id')->constrained('zonas')->cascadeOnUpdate()->restrictOnDelete();
             $table->string('numero', 10)->unique();
             $table->unsignedTinyInteger('capacidad');
             $table->enum('tipo', ['estandar', 'vip', 'botellero']);
             $table->enum('estado', ['libre', 'ocupada', 'reservada', 'mantenimiento']);
             $table->timestamps();
-          
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('mesas');

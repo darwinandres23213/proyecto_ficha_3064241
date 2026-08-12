@@ -10,11 +10,7 @@ return new class extends Migration
     {
         Schema::create('personal_seguridad', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('empleado_id')
-                ->unique()
-                ->constrained('empleados')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
+            $table->foreignId('empleado_id')->unique()->constrained('empleados')->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('empresa_seguridad', 100)->nullable();
             $table->string('cargo', 50);
             $table->enum('turno', ['Dia', 'Noche', 'Rotativo']);

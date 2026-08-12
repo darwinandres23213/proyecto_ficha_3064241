@@ -2,37 +2,40 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
-
+use Illuminate\Database\Eloquent\Model;
 
 class Usuario extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
-    protected $table = "usuarios";
+    protected $table = 'usuarios';
 
     protected $fillable = [
+        'rol_id',
         'nombres',
         'apellidos',
         'edad',
         'genero',
         'email',
         'password',
-        'id_rol'
     ];
 
+    protected $hidden = [
+        'password',
+    ];
+
+    protected $casts = [
+        'password' => 'hashed',
+    ];
 
     public function rol()
     {
-        return $this->belongsTo(Rol::class);
+        return $this->belongsTo(Rol::class, 'rol_id');
     }
 
     public function empleado()
     {
-         return $this->hasOne(Empleado::class);
+        return $this->hasOne(Empleado::class, 'usuario_id');
     }
-
-
 }

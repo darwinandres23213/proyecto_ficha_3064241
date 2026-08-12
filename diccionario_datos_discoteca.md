@@ -2,12 +2,12 @@
 
 **Proyecto:** Gestión de discoteca  
 **Framework:** Laravel (migraciones Eloquent)  
-**Cantidad de entidades:** 26  
-**Fecha:** 5 de agosto de 2026  
+**Cantidad de entidades:** 30  
+**Fecha:** 12 de agosto de 2026  
 
 > Numeradas en el **orden de creación** (padre → hija).  
 > `roles` y `usuarios` → **Instructor**.  
-> Entidades nuevas (sin aprendiz definido) → **aprendiz asignado**.  
+> Cada aprendiz tiene una entidad asignada.  
 > Ver también [`README.md`](./README.md).
 
 ---
@@ -27,21 +27,25 @@
 | 9 | Reserva | `reservas` | `clientes`, `mesas`, `eventos`, `empleados` | Fabio Andrés Mora Garcia |
 | 10 | Entrada | `entradas` | `clientes`, `eventos` | Hector David Velasquez Lopez |
 | 11 | Categoría de producto | `categorias_producto` | — | Jhoan Sebastian Alfaro Robayo |
-| 12 | Proveedor | `proveedores` | — | Jhon Fredy Parales Ontiveros |
+| 12 | Proveedor | `proveedores` | — | Jhon Fredy Parrales Ontiveros |
 | 13 | Producto | `productos` | `categorias_producto`, `proveedores` | Juan Carlos Olaya Lozano |
 | 14 | Inventario | `inventarios` | `productos` | Julian Andres Castaneda Gutierrez |
 | 15 | Promoción | `promociones` | `eventos` | Marlon Rojas Cortés |
 | 16 | Venta | `ventas` | `clientes`, `empleados`, `mesas`, `promociones` | Michael Antonio Beltran Espinosa |
-| 17 | Detalle de venta | `detalle_ventas` | `ventas`, `productos` | Santiago Giraldo Betancour |
-| 18 | Tipo de pago | `tipos_pago` | — | aprendiz asignado |
+| 17 | Detalle de venta | `detalle_ventas` | `ventas`, `productos` | Santiago Giraldo Betancout |
+| 18 | Tipo de pago | `tipos_pago` | — | Anderson Alejandro Sanchez Martinez |
 | 19 | Pago | `pagos` | `ventas`, `tipos_pago` | Sebastian Alexander Siachoque Triana |
 | 20 | Incidencia | `incidencias` | `empleados`, `zonas` | Yessika Magaly Jara Herrera |
-| 21 | Devolución | `devoluciones` | `ventas`, `empleados` | aprendiz asignado |
-| 22 | Reseña | `resenas` | `clientes`, `eventos` | aprendiz asignado |
-| 23 | Historial de reserva | `historial_reservas` | `reservas`, `empleados` | aprendiz asignado |
-| 24 | Cargo de empleado | `cargos_empleado` | `empleados` | aprendiz asignado |
-| 25 | Objeto perdido | `objetos_perdidos` | — | aprendiz asignado |
-| 26 | Personal de seguridad | `personal_seguridad` | `empleados` | aprendiz asignado |
+| 21 | Devolución | `devoluciones` | `ventas`, `empleados` | Andres Felipe Gil Lopez |
+| 22 | Reseña | `resenas` | `clientes`, `eventos` | Cristian Camilo Monroy Castro |
+| 23 | Historial de reserva | `historial_reservas` | `reservas`, `empleados` | Edwar Stiven Trujillo Rojas |
+| 24 | Cargo de empleado | `cargos_empleado` | `empleados` | Erika Andrea Gonzalez Ramos |
+| 25 | Objeto perdido | `objetos_perdidos` | `zonas`, `empleados`, `clientes` | Jhanpol Parra Barreto |
+| 26 | Personal de seguridad | `personal_seguridad` | `empleados` | Johan Alexis Salas Restrepo |
+| 27 | Turno | `turnos` | `empleados` | Marlon Aswin Baldemar Niño Turriago |
+| 28 | Lista negra | `listas_negras` | `clientes`, `empleados` | Pedro David Bonilla Alvarez |
+| 29 | Orden de compra | `ordenes_compra` | `proveedores`, `empleados` | Raul Ramirez Llamas |
+| 30 | Movimiento de inventario | `movimientos_inventario` | `productos`, `empleados` | Sergio Orlando Velandia Quevedo |
 
 ---
 
@@ -73,7 +77,7 @@
 | Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
 |-------|--------------|---------|----------|----|----|-------|------|-------------|
 | id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único del usuario |
-| id_rol | unsignedBigInteger | BIGINT | — | No | Sí → `roles.id` | No | No | Rol asignado |
+| rol_id | foreignId | BIGINT | — | No | Sí → `roles.id` | No | No | Rol asignado |
 | nombres | string | VARCHAR | 50 | No | No | No | No | Nombres |
 | apellidos | string | VARCHAR | 50 | No | No | No | No | Apellidos |
 | edad | integer | INT | — | No | No | No | No | Edad |
@@ -209,8 +213,8 @@
 | Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
 |-------|--------------|---------|----------|----|----|-------|------|-------------|
 | id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único del evento |
-| zonas_id | unsignedBigInteger | BIGINT | — | No | Sí → `zonas.id` | No | No | Zona principal del evento |
-| dj_artistas_id | unsignedBigInteger | BIGINT | — | No | Sí → `djs_artistas.id` | No | No | Artista principal |
+| zona_id | foreignId | BIGINT | — | No | Sí → `zonas.id` | No | No | Zona principal del evento |
+| dj_artista_id | foreignId | BIGINT | — | No | Sí → `djs_artistas.id` | No | No | Artista principal |
 | nombre | string | VARCHAR | 120 | No | No | No | No | Nombre del evento |
 | descripcion | text | TEXT | — | No | No | No | No | Detalle promocional |
 | fecha_inicio | dateTime | DATETIME | — | No | No | No | No | Inicio del evento |
@@ -295,7 +299,7 @@
 
 ## 12. Proveedor — `proveedores`
 
-**Responsable:** Jhon Fredy Parales Ontiveros  
+**Responsable:** Jhon Fredy Parrales Ontiveros  
 **Descripción:** Empresas o personas que abastecen productos a la discoteca.  
 **Depende de:** ninguna  
 **Importante:** se crea **antes** que `productos`.
@@ -326,8 +330,8 @@
 | Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
 |-------|--------------|---------|----------|----|----|-------|------|-------------|
 | id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único del producto |
-| id_categoria | unsignedBigInteger | BIGINT | — | No | Sí → `categorias_producto.id` | No | No | Categoría del producto |
-| id_proveedor | unsignedBigInteger | BIGINT | — | No | Sí → `proveedores.id` | No | No | Proveedor principal |
+| categoria_id | foreignId | BIGINT | — | No | Sí → `categorias_producto.id` | No | No | Categoría del producto |
+| proveedor_id | foreignId | BIGINT | — | No | Sí → `proveedores.id` | No | No | Proveedor principal |
 | codigo | string | VARCHAR | 30 | No | No | Sí | No | Código interno o SKU |
 | nombre | string | VARCHAR | 120 | No | No | No | No | Nombre comercial |
 | descripcion | text | TEXT | — | No | No | No | Sí | Descripción del producto |
@@ -417,7 +421,7 @@
 
 ## 17. Detalle de venta — `detalle_ventas`
 
-**Responsable:** Santiago Giraldo Betancour  
+**Responsable:** Santiago Giraldo Betancout  
 **Descripción:** Ítems consumidos en cada venta (líneas de factura).  
 **Depende de:** `ventas`, `productos`
 
@@ -438,7 +442,7 @@
 
 ## 18. Tipo de pago — `tipos_pago`
 
-**Responsable:** aprendiz asignado  
+**Responsable:** Anderson Alejandro Sanchez Martinez  
 **Descripción:** Catálogo de formas de pago (PSE, Nequi, Daviplata, tarjeta, efectivo, etc.).  
 **Depende de:** ninguna  
 **Importante:** se crea **antes** que `pagos`.
@@ -504,7 +508,7 @@
 
 ## 21. Devolución — `devoluciones`
 
-**Responsable:** aprendiz asignado  
+**Responsable:** Andres Felipe Gil Lopez  
 **Descripción:** Registra las devoluciones o reembolsos asociados a una venta.  
 **Depende de:** `ventas`, `empleados`
 
@@ -527,7 +531,7 @@
 
 ## 22. Reseña — `resenas`
 
-**Responsable:** aprendiz asignado  
+**Responsable:** Cristian Camilo Monroy Castro  
 **Descripción:** Opiniones y calificaciones de clientes sobre eventos.  
 **Depende de:** `clientes`, `eventos`
 
@@ -549,7 +553,7 @@
 
 ## 23. Historial de reserva — `historial_reservas`
 
-**Responsable:** aprendiz asignado  
+**Responsable:** Edwar Stiven Trujillo Rojas  
 **Descripción:** Trazabilidad de cambios de estado de una reserva (creación, edición, eliminación, recuperación).  
 **Depende de:** `reservas`, `empleados`
 
@@ -571,7 +575,7 @@
 
 ## 24. Cargo de empleado — `cargos_empleado`
 
-**Responsable:** aprendiz asignado  
+**Responsable:** Erika Andrea Gonzalez Ramos  
 **Descripción:** Cargo asignado a cada empleado dentro del establecimiento.  
 **Depende de:** `empleados`
 
@@ -590,13 +594,16 @@
 
 ## 25. Objeto perdido — `objetos_perdidos`
 
-**Responsable:** aprendiz asignado  
+**Responsable:** Jhanpol Parra Barreto  
 **Descripción:** Registro de objetos encontrados en el local para su custodia y devolución.  
-**Depende de:** ninguna
+**Depende de:** `zonas`, `empleados`, `clientes`
 
 | Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
 |-------|--------------|---------|----------|----|----|-------|------|-------------|
 | id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único del objeto |
+| zona_id | foreignId | BIGINT | — | No | Sí → `zonas.id` | No | Sí | Zona donde se encontró |
+| empleado_id | foreignId | BIGINT | — | No | Sí → `empleados.id` | No | No | Empleado que registra el hallazgo |
+| cliente_id | foreignId | BIGINT | — | No | Sí → `clientes.id` | No | Sí | Cliente al que se entrega |
 | nombre_objeto | string | VARCHAR | 100 | No | No | No | No | Nombre o tipo del objeto |
 | descripcion | text | TEXT | — | No | No | No | Sí | Descripción del hallazgo |
 | lugar_encontrado | string | VARCHAR | 100 | No | No | No | No | Sitio donde se encontró |
@@ -605,13 +612,13 @@
 | created_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de creación |
 | updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
 
-**Relaciones:** Ninguna (tabla independiente).
+**Relaciones:** Pertenece a zona, empleado y cliente (`belongsTo`).
 
 ---
 
 ## 26. Personal de seguridad — `personal_seguridad`
 
-**Responsable:** aprendiz asignado  
+**Responsable:** Johan Alexis Salas Restrepo  
 **Descripción:** Empleados asignados a vigilancia, control de acceso y orden del local.  
 **Depende de:** `empleados`
 
@@ -628,6 +635,95 @@
 | updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
 
 **Relaciones:** Pertenece a un empleado (`belongsTo`). Cada empleado puede tener un único registro de seguridad (`hasOne`).
+
+---
+
+## 27. Turno — `turnos`
+
+**Responsable:** Marlon Aswin Baldemar Niño Turriago  
+**Descripción:** Programación de turnos de trabajo del personal de la discoteca.  
+**Depende de:** `empleados`
+
+| Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
+|-------|--------------|---------|----------|----|----|-------|------|-------------|
+| id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único del turno |
+| empleado_id | foreignId | BIGINT | — | No | Sí → `empleados.id` | No | No | Empleado asignado al turno |
+| fecha | date | DATE | — | No | No | No | No | Fecha del turno |
+| hora_inicio | time | TIME | — | No | No | No | No | Hora de inicio |
+| hora_fin | time | TIME | — | No | No | No | No | Hora de finalización |
+| tipo | enum | ENUM | — | No | No | No | No | manana, tarde, noche |
+| estado | enum | ENUM | — | No | No | No | No | programado, en_curso, finalizado, ausente |
+| created_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de creación |
+| updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
+
+**Relaciones:** Pertenece a un empleado (`belongsTo`).
+
+---
+
+## 28. Lista negra — `listas_negras`
+
+**Responsable:** Pedro David Bonilla Alvarez  
+**Descripción:** Clientes con restricción de ingreso al establecimiento.  
+**Depende de:** `clientes`, `empleados`
+
+| Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
+|-------|--------------|---------|----------|----|----|-------|------|-------------|
+| id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único del registro |
+| cliente_id | foreignId | BIGINT | — | No | Sí → `clientes.id` | No | No | Cliente restringido |
+| empleado_id | foreignId | BIGINT | — | No | Sí → `empleados.id` | No | No | Empleado que registra la restricción |
+| motivo | text | TEXT | — | No | No | No | No | Motivo de la restricción |
+| fecha_registro | dateTime | DATETIME | — | No | No | No | No | Fecha de registro |
+| fecha_fin | dateTime | DATETIME | — | No | No | No | Sí | Fecha de levantamiento |
+| estado | enum | ENUM | — | No | No | No | No | activa, levantada |
+| created_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de creación |
+| updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
+
+**Relaciones:** Pertenece a un cliente y a un empleado (`belongsTo`).
+
+---
+
+## 29. Orden de compra — `ordenes_compra`
+
+**Responsable:** Raul Ramirez Llamas  
+**Descripción:** Pedidos de abastecimiento realizados a proveedores.  
+**Depende de:** `proveedores`, `empleados`
+
+| Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
+|-------|--------------|---------|----------|----|----|-------|------|-------------|
+| id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único de la orden |
+| proveedor_id | foreignId | BIGINT | — | No | Sí → `proveedores.id` | No | No | Proveedor del pedido |
+| empleado_id | foreignId | BIGINT | — | No | Sí → `empleados.id` | No | No | Empleado que registra la orden |
+| numero_orden | string | VARCHAR | 30 | No | No | Sí | No | Número de la orden |
+| fecha | dateTime | DATETIME | — | No | No | No | No | Fecha de la orden |
+| total | decimal | DECIMAL(12,2) | 12,2 | No | No | No | No | Valor total |
+| estado | enum | ENUM | — | No | No | No | No | pendiente, recibida, cancelada |
+| observaciones | text | TEXT | — | No | No | No | Sí | Notas adicionales |
+| created_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de creación |
+| updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
+
+**Relaciones:** Pertenece a un proveedor y a un empleado (`belongsTo`).
+
+---
+
+## 30. Movimiento de inventario — `movimientos_inventario`
+
+**Responsable:** Sergio Orlando Velandia Quevedo  
+**Descripción:** Kardex de entradas, salidas y ajustes de stock por producto.  
+**Depende de:** `productos`, `empleados`
+
+| Campo | Tipo Laravel | Tipo BD | Longitud | PK | FK | Único | Nulo | Descripción |
+|-------|--------------|---------|----------|----|----|-------|------|-------------|
+| id | bigIncrements | BIGINT | — | Sí | No | Sí | No | Identificador único del movimiento |
+| producto_id | foreignId | BIGINT | — | No | Sí → `productos.id` | No | No | Producto afectado |
+| empleado_id | foreignId | BIGINT | — | No | Sí → `empleados.id` | No | No | Empleado que registra el movimiento |
+| tipo | enum | ENUM | — | No | No | No | No | entrada, salida, ajuste |
+| cantidad | unsignedInteger | INT | — | No | No | No | No | Cantidad movida |
+| motivo | string | VARCHAR | 255 | No | No | No | Sí | Motivo del movimiento |
+| fecha | dateTime | DATETIME | — | No | No | No | No | Fecha y hora del movimiento |
+| created_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de creación |
+| updated_at | timestamp | TIMESTAMP | — | No | No | No | Sí | Fecha de actualización |
+
+**Relaciones:** Pertenece a un producto y a un empleado (`belongsTo`).
 
 ---
 
@@ -651,7 +747,11 @@ ventas / empleados ──* devoluciones
 empleados / zonas ──* incidencias
 empleados 1──1 cargos_empleado
 empleados 1──1 personal_seguridad
-objetos_perdidos (independiente)
+empleados 1──* turnos
+clientes / empleados ──* listas_negras
+proveedores / empleados ──* ordenes_compra
+productos / empleados ──* movimientos_inventario
+zonas / empleados / clientes ──* objetos_perdidos
 ```
 
 ---

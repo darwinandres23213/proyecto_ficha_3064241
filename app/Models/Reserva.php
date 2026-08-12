@@ -4,21 +4,29 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Reserva extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'reservas';
 
-        protected $fillable = [
-            'fecha_reserva',
-            'cantidad_personas',
-            'anticipo',
-            'observaciones',
-            'estado',
-        ];
+    protected $fillable = [
+        'cliente_id',
+        'mesa_id',
+        'evento_id',
+        'empleado_id',
+        'fecha_reserva',
+        'cantidad_personas',
+        'anticipo',
+        'observaciones',
+        'estado',
+    ];
+
+    protected $casts = [
+        'fecha_reserva' => 'datetime',
+        'anticipo' => 'decimal:2',
+    ];
 
     public function cliente()
     {
@@ -38,5 +46,10 @@ class Reserva extends Model
     public function empleado()
     {
         return $this->belongsTo(Empleado::class, 'empleado_id');
+    }
+
+    public function historialReservas()
+    {
+        return $this->hasMany(HistorialReserva::class, 'reserva_id');
     }
 }

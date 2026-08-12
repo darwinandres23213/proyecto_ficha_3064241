@@ -2,15 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
 class CategoriaProducto extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
-    protected $table = "categorias_producto";
+    protected $table = 'categorias_producto';
 
     protected $fillable = [
         'nombre',
@@ -18,9 +17,12 @@ class CategoriaProducto extends Model
         'estado',
     ];
 
-    public function Producto()
+    protected $casts = [
+        'estado' => 'boolean',
+    ];
+
+    public function productos()
     {
-        return $this->hasMany(Producto::class);
+        return $this->hasMany(Producto::class, 'categoria_id');
     }
 }
- 

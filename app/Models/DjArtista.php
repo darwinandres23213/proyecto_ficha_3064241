@@ -2,13 +2,13 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
 class DjArtista extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
+
     protected $table = 'djs_artistas';
 
     protected $fillable = [
@@ -18,11 +18,16 @@ class DjArtista extends Model
         'biografia',
         'contacto',
         'cache_base',
-        'estado'
+        'estado',
+    ];
+
+    protected $casts = [
+        'cache_base' => 'decimal:2',
+        'estado' => 'boolean',
     ];
 
     public function eventos()
     {
-        return $this->HasMany(Evento::class, 'dj_artistas_id'); // Revisar relación con la tabla eventos
+        return $this->hasMany(Evento::class, 'dj_artista_id');
     }
 }

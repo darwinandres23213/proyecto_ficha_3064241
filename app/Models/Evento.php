@@ -2,19 +2,18 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Model;
 
 class Evento extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory;
 
     protected $table = 'eventos';
-    protected $fillable = [
 
-        'zonas_id',
-        'dj_artistas_id',
+    protected $fillable = [
+        'zona_id',
+        'dj_artista_id',
         'nombre',
         'descripcion',
         'fecha_inicio',
@@ -22,39 +21,41 @@ class Evento extends Model
         'aforo',
         'precio_entrada',
         'estado',
-
     ];
 
-    public function DjArtista(){
-        return $this->belongsTo(DjArtista::class);
+    protected $casts = [
+        'fecha_inicio' => 'datetime',
+        'fecha_fin' => 'datetime',
+        'precio_entrada' => 'decimal:2',
+    ];
+
+    public function zona()
+    {
+        return $this->belongsTo(Zona::class, 'zona_id');
     }
 
-    public function Zona () {
-        return $this->belongsTo(Zona::class);
+    public function djArtista()
+    {
+        return $this->belongsTo(DjArtista::class, 'dj_artista_id');
     }
 
-    public function Mesa () {
-        return $this->hasMany(Mesa::class);
+    public function reservas()
+    {
+        return $this->hasMany(Reserva::class, 'evento_id');
     }
 
-    public function Empleado () {
-        return $this->hasMany(Empleado::class);
+    public function entradas()
+    {
+        return $this->hasMany(Entrada::class, 'evento_id');
     }
 
-    public function Cliente () {
-        return $this->hasMany(Cliente::class);
+    public function promociones()
+    {
+        return $this->hasMany(Promocion::class, 'evento_id');
     }
 
-    public function Entrada () {
-        return $this->hasMany(Entrada::class);
+    public function resenas()
+    {
+        return $this->hasMany(Resena::class, 'evento_id');
     }
-
-    public function Resena (){
-        return $this->hasMany(Resena::class);
-    }
-
-    public function Promocion () {
-        return $this->hasMany(Promocion::class);
-    }
-
 }

@@ -9,85 +9,60 @@ class Venta extends Model
 {
     use HasFactory;
 
-    protected $table = 'ventas'; // hola  
+    protected $table = 'ventas';
 
     protected $fillable = [
-        'ClienteId',
-        'EmpleadoId',
-        'MesaId',
-        'PromocionId',
-        'NumeroFactura',
-        'FechaVenta',
-        'Subtotal',
-        'Descuento',
-        'Total',
-        'Estado',
+        'cliente_id',
+        'empleado_id',
+        'mesa_id',
+        'promocion_id',
+        'numero_factura',
+        'fecha_venta',
+        'subtotal',
+        'descuento',
+        'total',
+        'estado',
     ];
 
     protected $casts = [
-        'FechaVenta' => 'datetime',
-        'Subtotal'   => 'decimal:2',
-        'Descuento'  => 'decimal:2',
-        'Total'      => 'decimal:2',
+        'fecha_venta' => 'datetime',
+        'subtotal' => 'decimal:2',
+        'descuento' => 'decimal:2',
+        'total' => 'decimal:2',
     ];
 
-
-
-    // ─── Relaciones ───────────────────────────────────────────────
-
-    /**
-     * Cliente asociado a la venta (opcional).
-     */
     public function cliente()
     {
-        return $this->belongsTo(Cliente::class, 'ClienteId');   git 
+        return $this->belongsTo(Cliente::class, 'cliente_id');
     }
-  
-    /**
-     * Empleado que registró la venta.
-     */
+
     public function empleado()
     {
-        return $this->belongsTo(Empleado::class, 'EmpleadoId');
+        return $this->belongsTo(Empleado::class, 'empleado_id');
     }
 
-    /**
-     * Mesa vinculada a la venta (opcional).
-     */
     public function mesa()
     {
-        return $this->belongsTo(Mesa::class, 'MesaId');
+        return $this->belongsTo(Mesa::class, 'mesa_id');
     }
 
-    /**
-     * Promoción aplicada a la venta (opcional).
-     */
     public function promocion()
     {
-        return $this->belongsTo(Promocion::class, 'PromocionId');
+        return $this->belongsTo(Promocion::class, 'promocion_id');
     }
 
-    /**
-     * Líneas de detalle de esta venta.
-     */
     public function detalles()
     {
-        return $this->hasMany(DetalleVenta::class, 'VentaId');
+        return $this->hasMany(DetalleVenta::class, 'venta_id');
     }
 
-    /**
-     * Pagos registrados para esta venta.
-     */
     public function pagos()
     {
-        return $this->hasMany(Pago::class, 'VentaId');
+        return $this->hasMany(Pago::class, 'venta_id');
     }
 
-    /**
-     * Devoluciones asociadas a esta venta.
-     */
     public function devoluciones()
     {
-        return $this->hasMany(Devolucion::class, 'VentaId');
+        return $this->hasMany(Devolucion::class, 'venta_id');
     }
 }

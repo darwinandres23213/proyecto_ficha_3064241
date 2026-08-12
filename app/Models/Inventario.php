@@ -2,13 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Inventario extends Model
 {
-        use HasFactory, SoftDeletes;
+    use HasFactory;
 
-    protected $table = "inventarios";
+    protected $table = 'inventarios';
 
     protected $fillable = [
         'producto_id',
@@ -17,14 +18,15 @@ class Inventario extends Model
         'ubicacion',
         'ultima_entrada',
         'ultima_salida',
-    
     ];
 
+    protected $casts = [
+        'ultima_entrada' => 'datetime',
+        'ultima_salida' => 'datetime',
+    ];
 
     public function producto()
     {
-     return $this->hasMany(Producto::class);
+        return $this->belongsTo(Producto::class, 'producto_id');
     }
-
-}   
-
+}

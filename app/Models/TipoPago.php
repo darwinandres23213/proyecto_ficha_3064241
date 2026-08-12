@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Rol extends Model
+class TipoPago extends Model
 {
     use HasFactory;
 
-    protected $table = 'roles';
+    protected $table = 'tipos_pago';
 
     protected $fillable = [
-        'nombre_rol',
+        'nombre',
         'descripcion',
         'estado',
     ];
@@ -21,8 +21,8 @@ class Rol extends Model
         'estado' => 'boolean',
     ];
 
-    public function usuarios()
+    public function pagos()
     {
-        return $this->hasMany(Usuario::class, 'rol_id');
+        return $this->hasMany(Pago::class, 'tipo_pago_id');
     }
 }

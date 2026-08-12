@@ -9,7 +9,7 @@ class Entrada extends Model
 {
     use HasFactory;
 
-    protected $table = "entradas";
+    protected $table = 'entradas';
 
     protected $fillable = [
         'cliente_id',
@@ -22,14 +22,19 @@ class Entrada extends Model
         'estado',
     ];
 
-     public function cliente()
+    protected $casts = [
+        'precio' => 'decimal:2',
+        'fecha_compra' => 'datetime',
+        'fecha_uso' => 'datetime',
+    ];
+
+    public function cliente()
     {
-        return $this->belongsTo(Cliente::class);
+        return $this->belongsTo(Cliente::class, 'cliente_id');
     }
 
     public function evento()
     {
-        return $this->belongsTo(Evento::class);
+        return $this->belongsTo(Evento::class, 'evento_id');
     }
 }
-
