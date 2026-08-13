@@ -2,7 +2,7 @@
 
 namespace App\Interfaces;
 
-interface InventariiInterface extends BaseInterface
+interface InventarioInterface extends BaseInterface
 {
     public function getByProductoId(int $producto_id);
     public function getStockByUbicacion(string $ubicacion);
