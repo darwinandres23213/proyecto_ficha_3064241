@@ -8,5 +8,5 @@ interface PersonalSeguridadInterface extends BaseInterface
 
     public function getByEmpresa(string $empresa);
 
-    public function getByCargo(int $id, string $cargo);
+    public function getByCargo(string $cargo);
 } 
