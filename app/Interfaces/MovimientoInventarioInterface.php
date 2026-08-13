@@ -4,8 +4,7 @@ namespace App\Interfaces;
 
 interface MovimientoInventarioInterface extends BaseInterface 
 {
-    public function obtenerStockActual(integer $datos);
-    gitpublic function obtenerMovimientosPorAlmacen(int $almacenId);
-    public function obtenerMovimientosPorFecha(string $fecha);
-
+    public function existeStockSuficiente(int $productoId, float $cantidad); 
+    public function calcularValorTotalInventario(int $almacenId); 
+    public function generarReporteMovimientos(string $fechaInicio, string $fechaFin); 
 }
