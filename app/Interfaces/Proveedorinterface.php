@@ -4,9 +4,9 @@ namespace App\Interfaces;
 
 interface ProveedorInterface extends BaseInterface
 {
-    public function searchByName($name);
+    public function searchByName(string $name): array;
 
-    public function getByEmail($email);
+    public function getByEmail(string $email): ?object;
 
-    public function getActiveProviders();
+    public function getActiveProviders(): array;
 }
