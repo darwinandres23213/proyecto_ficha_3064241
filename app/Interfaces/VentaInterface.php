@@ -9,5 +9,6 @@ interface VentaInterface
     public function getByEstado(string $estado); // Filtrar ventas por estado: abierta | pagada | anulada
 }
 
-//hola
+//hola . 
+
 
