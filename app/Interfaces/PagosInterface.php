@@ -6,11 +6,11 @@ use DateTime;
 
 interface PagoInterface extends BaseInterface
 {
-    public function getByFecha(DateTime $fecha_pago): ?array;
+    public function getByFecha(DateTime $fecha_pago);
 
-    public function TieneReferencia(?string $referencia): bool;
+    public function TieneReferencia(?string $referencia);
 
-    public function ObtenerEstado(int $pago_id): string;
+    public function ObtenerEstado(int $pago_id);
 
-    public function VerificacionDePago(array $detalledepago): bool;
+    public function VerificacionDePago(array $detalledepago);
 }
