@@ -21,16 +21,10 @@ class TipoPagosRepository extends BaseRepository implements TipoPagoInterface
 
     public function cambiarEstado(int $id, bool $estado)
     {
-        $tipoPago = $this->model->find($id);
-
-        if (!$tipoPago) {
-            return null;
-        }
-
-        $tipoPago->update([
-            'estado' => $estado,
-        ]);
-
-        return $tipoPago->fresh();
+        return $this->update(
+            ['estado' => $estado],
+            $id
+        );
     }
+    // cambios hechos por anderson
 }
