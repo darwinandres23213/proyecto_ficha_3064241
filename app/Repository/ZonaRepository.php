@@ -14,11 +14,6 @@ class ZonaRepository extends BaseRepository implements ZonaInterface
         parent::__construct($Zona1);
     }
 
-    public function find($id)
-    
-    {
-        return $this->model->find($id);
-    }
 
     public function findByAforoMaximo($aforoMaximo)
     {
