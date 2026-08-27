@@ -11,7 +11,7 @@ class Mesa extends Model
 
     protected $table = 'mesas';
 
-    
+
     protected $fillable = [
         'zona_id',
         'numero',
@@ -34,4 +34,4 @@ class Mesa extends Model
     {
         return $this->hasMany(Venta::class, 'mesa_id');
     }
-}
+} // hola profe
