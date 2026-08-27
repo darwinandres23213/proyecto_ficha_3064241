@@ -4,47 +4,27 @@ namespace App\Repository;
 
 use App\Interfaces\EmpleadoInterface;
 use App\Models\Empleado;
+use Carbon\CarbonInterface;
 
 class EmpleadoRepository extends BaseRepository implements EmpleadoInterface
-
 {
     public function __construct(Empleado $empleado)
     {
         parent::__construct($empleado);
     }
 
-    public function getAll()
+    public function findByFechaIngreso(CarbonInterface $fecha_ingreso)
     {
-        return $this->model->all();
+        return $this->model->where('fecha_ingreso', $fecha_ingreso)->get();
     }
 
-    public function getById(int $id)
+    public function findByEstado(string $estado)
     {
-        return $this->model->find($id);
+        return $this->model->where('estado', $estado)->get();
     }
 
-    public function create(array $datos)
+    public function findByCargo(string $cargo)
     {
-        return $this->model->create($datos);
+        return $this->model->where('cargo', $cargo)->get();
     }
-
-    public function update(array $datos, int $id)
-    {
-        $registro = $this->model->find($id);
-        if (!$registro)
-            return null;
-
-        $registro->update($datos);
-        return $registro;
-    }
-
-    public function delete(int $id)
-    {
-        $registro = $this->model->find($id);
-        if (!$registro)
-            return null;
-
-        return $registro->delete();
-    }
-
 }
