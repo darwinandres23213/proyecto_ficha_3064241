@@ -6,7 +6,7 @@ class ReservaRepository extends BaseRepository implements ReservaRepositoryInter
 {
     public function __construct(Reserva $reserva)
     {
-        parent::__construct($reserva);
+        parent::__construct($reserva);git 
     }
 
     public function getState(string $estado){
