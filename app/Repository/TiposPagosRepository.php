@@ -26,5 +26,6 @@ class TipoPagosRepository extends BaseRepository implements TipoPagoInterface
             $id
         );
     }
-    // cambios hechos por anderson
+    // cambios hechos por alejandro
+    
 }
