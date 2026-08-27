@@ -10,7 +10,7 @@ return new class extends Migration
     {
         Schema::create('inventarios', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('producto_id')->constrained('productos');
+            $table->foreignId('producto_id')->constrained('productos')->cascadeOnUpdate()->restrictOnDelete();
             $table->unsignedInteger('stock_actual');
             $table->unsignedInteger('stock_minimo');
             $table->string('ubicacion', 80)->nullable();

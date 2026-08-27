@@ -6,7 +6,6 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    
     public function up(): void
     {
         Schema::create('categorias_producto', function (Blueprint $table) {
@@ -15,7 +14,6 @@ return new class extends Migration
             $table->string('descripcion', 255)->nullable();
             $table->boolean('estado')->default(true);
             $table->timestamps();
-    
         });
     }
 
@@ -24,6 +22,3 @@ return new class extends Migration
         Schema::dropIfExists('categorias_producto');
     }
 };
-
-
-

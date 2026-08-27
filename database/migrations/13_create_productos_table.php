@@ -10,6 +10,8 @@ return new class extends Migration
     {
         Schema::create('productos', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('categoria_id')->constrained('categorias_producto')->cascadeOnUpdate()->restrictOnDelete();
+            $table->foreignId('proveedor_id')->constrained('proveedores')->cascadeOnUpdate()->restrictOnDelete();
             $table->string('codigo', 30)->unique();
             $table->string('nombre', 120);
             $table->text('descripcion')->nullable();
@@ -17,12 +19,7 @@ return new class extends Migration
             $table->decimal('precio_compra', 12, 2)->nullable();
             $table->string('unidad_medida', 20);
             $table->boolean('estado')->default(true);
-            $table->unsignedBigInteger('id_categoria');
-            $table->unsignedBigInteger('id_proveedor');
             $table->timestamps();
-
-            $table->foreign('id_categoria')->references('id')->on('categorias_producto');
-            $table->foreign('id_proveedor')->references('id')->on('proveedores');
         });
     }
 

@@ -10,14 +10,8 @@ return new class extends Migration
     {
         Schema::create('pagos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('venta_id')
-                ->constrained('ventas')
-                ->cascadeOnUpdate()
-                ->cascadeOnDelete();
-            $table->foreignId('tipo_pago_id')
-                ->constrained('tipos_pago')
-                ->cascadeOnUpdate()
-                ->restrictOnDelete();
+            $table->foreignId('venta_id')->constrained('ventas')->cascadeOnUpdate()->cascadeOnDelete();
+            $table->foreignId('tipo_pago_id')->constrained('tipos_pago')->cascadeOnUpdate()->restrictOnDelete();
             $table->decimal('monto', 12, 2);
             $table->string('referencia', 80)->nullable();
             $table->dateTime('fecha_pago');
