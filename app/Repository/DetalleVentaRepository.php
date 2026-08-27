@@ -34,4 +34,4 @@ class DetalleVentaRepository extends BaseRepository implements DetalleVentaInter
   }
 }
 
-//santiago
+//santiagos
