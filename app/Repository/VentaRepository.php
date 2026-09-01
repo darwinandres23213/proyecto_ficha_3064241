@@ -31,4 +31,8 @@ class VentaRepository extends BaseRepository implements VentaInterface
             ->sum('total');
     }
 }
+//probando pr nuevamente ... 
+
+
+
 
