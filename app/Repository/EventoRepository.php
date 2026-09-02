@@ -12,11 +12,6 @@ class EventoRepository extends BaseRepository implements EventoInterface
         parent::__construct($ev);
     }
 
-    public function calcularRecaudo(int $aforo, float $precio_entradas)
-    {
-        return $aforo * $precio_entradas;
-    }      
-
     public function buscarPorNombre(string $nombre)
     {
         return $this->model->where('nombre', 'like', '%' . $nombre . '%')->get();

@@ -13,7 +13,6 @@ class BaseRepository implements BaseInterface
     {
         $this->model = $model;
     }
-
     public function create(array $datos)
     {
         return $this->model->create($datos);
