@@ -3,10 +3,13 @@
 namespace App\Repository;
 
 use App\Interfaces\BaseInterface;
+// use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Model;
-
 class BaseRepository implements BaseInterface
 {
+    /**
+     * @var Model|\Illuminate\Database\Eloquent\Builder
+     */
    protected Model $model;
 
     public function __construct(Model $model)
@@ -60,7 +63,7 @@ class BaseRepository implements BaseInterface
             return null;
         }               
         
-        return $this->model->delete($id);
+        return $registro->delete();
     }
 
 
