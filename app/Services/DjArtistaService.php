@@ -2,29 +2,29 @@
 
 namespace App\Services;
 
-use App\Models\DjArtista;
-use Illuminate\Support\Facades\DB;
+use App\Interfaces\DjArtistaInterface; // Importa la interfaz DjArtistaInterface para poder usarla en el servicio
+use Illuminate\Support\Facades\DB; // Se pueden hacer consultas más complejas con DB si es necesario
 
 class DjArtistaService
 {
-    public function __construct(
-        private DjArtista $djArtista
+    public function __construct( 
+        private DjArtistaInterface $djArtistaRepository // Inyección de dependencia del modelo DjArtista, permite acceder a la base de datos a través del modelo
     ) {
     }
-
+  
     public function getByGeneroMusical(string $generoMusical)
     {
-        return $this->djArtista->where('genero_musical', $generoMusical)->get();
+        return $this->djArtistaRepository->getByGeneroMusical($generoMusical);
     }
 
     public function getByNombreArtistico(string $nombreArtistico)
     {
-        return $this->djArtista->where('nombre_artistico', $nombreArtistico)->get();
+        return $this->djArtistaRepository->getByNombreArtistico($nombreArtistico);
     }
 
     public function getByNombreReal(string $nombreReal)
     {
-        return $this->djArtista->where('nombre_real', $nombreReal)->get();
+        return $this->djArtistaRepository->getByNombreReal($nombreReal);
     }
 }
 
