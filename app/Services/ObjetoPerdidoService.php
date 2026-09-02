@@ -8,7 +8,7 @@ use DateTime;
 class ObjetoPerdidoService
 {
     public function __construct(
-        private ObjetoPerdidoInterface $objetosPerdidosRepository
+        private ObjetoPerdidoInterface $objetoPerdidoRepository
     ) {
     }
 
