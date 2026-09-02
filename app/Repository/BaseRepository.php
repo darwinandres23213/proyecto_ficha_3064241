@@ -64,6 +64,7 @@ class BaseRepository implements BaseInterface
         }               
         
         return $registro->delete();
+        //anderson
     }
 
 
