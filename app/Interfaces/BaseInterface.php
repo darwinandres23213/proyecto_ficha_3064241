@@ -10,7 +10,3 @@ interface BaseInterface
     public function update(array $datos, int $id);
     public function delete(int $id);
 }     
-
-
-
- 
