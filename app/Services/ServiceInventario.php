@@ -8,8 +8,12 @@ use App\Repositories\InventarioRepository;
 class ServiceInventario
 {
 
+    protected InventarioRepository $inventarioRepository;
+
     public function __construct(InventarioRepository $inventarioRepository)
-    {}
+    {
+        $this->inventarioRepository = $inventarioRepository;
+    }
 
     public function getAllInventarios()
     {
