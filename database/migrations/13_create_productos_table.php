@@ -6,23 +6,40 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
+    /**
+     * Run the migrations.
+     */
     public function up(): void
     {
         Schema::create('productos', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('categoria_id')->constrained('categorias_producto')->cascadeOnUpdate()->restrictOnDelete();
-            $table->foreignId('proveedor_id')->constrained('proveedores')->cascadeOnUpdate()->restrictOnDelete();
-            $table->string('codigo', 30)->unique();
-            $table->string('nombre', 120);
-            $table->text('descripcion')->nullable();
-            $table->decimal('precio_venta', 12, 2);
-            $table->decimal('precio_compra', 12, 2)->nullable();
-            $table->string('unidad_medida', 20);
-            $table->boolean('estado')->default(true);
-            $table->timestamps();
+            $table->id(); // Identificador único autoincremental
+            $table->string('nombre'); // Nombre del producto (ej. Cerveza, Whisky, etc.)
+            $table->text('descripcion')->nullable(); // Descripción opcional del producto
+            $table->decimal('precio', 8, 2); // Precio con hasta 8 dígitos en total y 2 decimales
+            $table->integer('stock'); // Cantidad disponible en inventario
+            
+            // Llaves foráneas para las relaciones del sistema
+            $table->unsignedBigInteger('categoria_id'); // Relación con la tabla categorías
+            $table->unsignedBigInteger('proveedor_id'); // Relación con la tabla proveedores
+
+            $table->timestamps(); // Campos created_at y updated_at automáticos
+
+            // Definición de las restricciones (Foreign Keys) para asegurar la integridad de los datos
+            $table->foreign('categoria_id')
+                  ->references('id')
+                  ->on('categorias_producto')
+                  ->onDelete('cascade');
+
+            $table->foreign('proveedor_id')
+                  ->references('id')
+                  ->on('proveedores')
+                  ->onDelete('cascade');
         });
     }
 
+    /**
+     * Reverse the migrations.
+     */
     public function down(): void
     {
         Schema::dropIfExists('productos');

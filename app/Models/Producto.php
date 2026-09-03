@@ -9,48 +9,34 @@ class Producto extends Model
 {
     use HasFactory;
 
+    // Define el nombre de la tabla en la base de datos (opcional si sigue la convención plural de Laravel)
     protected $table = 'productos';
 
+    // Campos permitidos para asignación masiva (Mass Assignment) a través de formularios o seeders
     protected $fillable = [
-        'categoria_id',
-        'proveedor_id',
-        'codigo',
         'nombre',
         'descripcion',
-        'precio_venta',
-        'precio_compra',
-        'unidad_medida',
-        'estado',
+        'precio',
+        'stock',
+        'categoria_id',
+        'proveedor_id'
     ];
 
-    protected $casts = [
-        'precio_venta' => 'decimal:2',
-        'precio_compra' => 'decimal:2',
-        'estado' => 'boolean',
-    ];
-
+    /**
+     * Relación: Un producto pertenece a una categoría.
+     * Esto permite acceder a la categoría desde el producto (ej. $producto->categoria)
+     */
     public function categoria()
     {
         return $this->belongsTo(CategoriaProducto::class, 'categoria_id');
     }
 
+    /**
+     * Relación: Un producto es suministrado por un proveedor.
+     * Esto permite acceder al proveedor desde el producto (ej. $producto->proveedor)
+     */
     public function proveedor()
     {
         return $this->belongsTo(Proveedor::class, 'proveedor_id');
-    }
-
-    public function inventarios()
-    {
-        return $this->hasMany(Inventario::class, 'producto_id');
-    }
-
-    public function detalleVentas()
-    {
-        return $this->hasMany(DetalleVenta::class, 'producto_id');
-    }
-
-    public function movimientosInventario()
-    {
-        return $this->hasMany(MovimientoInventario::class, 'producto_id');
     }
 }
