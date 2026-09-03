@@ -1,0 +1,42 @@
+<?php
+namespace App\Services;
+
+use App\Interfaces\InventarioInterface;
+use App\Models\Inventario;
+use App\Repositories\InventarioRepository;
+
+class ServiceInventario
+{
+
+    protected InventarioRepository $inventarioRepository;
+
+    public function __construct(InventarioRepository $inventarioRepository)
+    {
+        $this->inventarioRepository = $inventarioRepository;
+    }
+
+    public function getAllInventarios()
+    {
+        return $this->inventarioRepository->getAll();
+    }
+
+    public function getInventarioById($id)
+    {
+        return $this->inventarioRepository->findById($id);
+    }
+
+    public function createInventario(array $data)
+    {
+        return $this->inventarioRepository->create($data);
+    }
+
+    public function updateInventario($id, array $data)
+    {
+        return $this->inventarioRepository->update($id, $data);
+    }
+
+    public function deleteInventario($id)
+    {
+        return $this->inventarioRepository->delete($id);
+    }
+}
