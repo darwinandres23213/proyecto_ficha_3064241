@@ -2,23 +2,19 @@
 
 namespace App\Repository;
 
-use App\Interfaces\BaseInterface;
-use Illuminate\Database\Eloquent\Model;
+use App\Interfaces\HistorialReservaInterface;
+use App\Models\HistorialReserva;
 
-class HistorialReservaRepository extends BaseInterface implements HistorialReservaInterface 
+class HistorialReservaRepository extends BaseRepository implements HistorialReservaInterface
 {
-   public function __construct(HistorialReserva $historial) 
-   {
-    parent::__construct($historial);
-   }
-
-    public function getByReservaId(int $reserva_id) 
+    public function __construct(HistorialReserva $historial)
     {
-
-        return $this->model->where('reserva_id', $reserva_id)->get();
-
+        parent::__construct($historial);
     }
-    
 
+    public function getByReservaId(int $reserva_id)
+    {
+        return $this->model->where('reserva_id', $reserva_id)->get();
+    }
 
 }
