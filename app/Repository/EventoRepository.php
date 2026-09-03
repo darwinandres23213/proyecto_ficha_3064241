@@ -10,12 +10,7 @@ class EventoRepository extends BaseRepository implements EventoInterface
     public function __construct(Evento $ev)
     {
         parent::__construct($ev);
-    }
-
-    public function calcularRecaudo(int $aforo, float $precio_entradas)
-    {
-        return $aforo * $precio_entradas;
-    }      
+    }   
 
     public function buscarPorNombre(string $nombre)
     {
