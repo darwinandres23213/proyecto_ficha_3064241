@@ -9,4 +9,5 @@ interface ProveedorInterface extends BaseInterface
     public function getByEmail(string $email): ?object;
 
     public function getActiveProviders(): array;
-}
+
+    }
