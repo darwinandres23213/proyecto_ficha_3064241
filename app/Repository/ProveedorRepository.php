@@ -1,68 +1,37 @@
 <?php
 
-namespace App\Repositories;
+namespace App\Repository;
 
 use App\Interfaces\ProveedorInterface;
 use App\Models\Proveedor;
 
-class ProveedorRepository extends ProveedorInterface
+class ProveedorRepository extends BaseRepository implements ProveedorInterface
 {
-    public function getAll()
+    public function __construct(Proveedor $model)
     {
-        return Proveedor::all();
-    }
-
-    public function getById(int $id)
-    {
-        return Proveedor::find($id);
-    }
-
-    public function create(array $datos)
-    {
-        return Proveedor::create($datos);
-    }
-
-    public function update(array $datos, int $id)
-    {
-        $proveedor = Proveedor::find($id);
-
-        if (!$proveedor) {
-            return null;
-        }
-
-        $proveedor->update($datos);
-
-        return $proveedor;
-    }
-
-    public function delete(int $id)
-    {
-        $proveedor = Proveedor::find($id);
-
-        if (!$proveedor) {
-            return false;
-        }
-
-        return $proveedor->delete();
+        parent::__construct($model);
     }
 
     public function searchByName(string $name): array
     {
-        return Proveedor::where('razon_social', 'LIKE', "%{$name}%")
+        return $this->model
+            ->where('razon_social', 'LIKE', "%{$name}%")
             ->get()
             ->toArray();
     }
 
     public function getByEmail(string $email): ?object
     {
-        return Proveedor::where('email', $email)->first();
+        return $this->model
+            ->where('email', $email)
+            ->first();
     }
 
     public function getActiveProviders(): array
     {
-        return Proveedor::where('estado', true)
+        return $this->model
+            ->where('estado', true)
             ->get()
             ->toArray();
     }
 }
-
